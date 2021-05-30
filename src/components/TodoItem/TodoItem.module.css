@@ -1,0 +1,46 @@
+.TodoItem {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    gap: 1rem;
+    min-height: 3.2rem;
+    padding: 0.5rem 1rem;
+}
+.TodoItem:not(:last-child) {
+    border-bottom: 1px solid #828282;
+}
+
+.TodoItem p {
+    flex-grow: 1;
+    text-overflow: fade;
+    cursor: pointer;
+}
+
+.TodoItem .btnContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.TodoItem .btn {
+    background: none;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.8rem;
+    height: 2.2rem;
+}
+
+.TodoItem .btnImportant {
+    border: 1px solid #d54f32;
+    border-radius: 5px;
+}
+
+.TodoItem .btnDelete {
+    border: 1px solid dimgray;
+    border-radius: 5px;
+}
+
+
+
