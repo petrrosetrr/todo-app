@@ -1,16 +1,18 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import TodoItem from "../TodoItem/TodoItem";
 import s from './TodoList.module.css'
-import {TodoContext} from "../App/App";
 
-const TodoList = () => {
-    const {todoItems} = useContext(TodoContext);
-    useEffect(() => console.log(todoItems), [todoItems]);
-    return (
-        <section className={s.TodoList}>
-            {todoItems.map((item) => <TodoItem key={item.id} {...item} />)}
-        </section>
-    );
+const TodoList = ({todoItems}) => {
+    if (todoItems.length > 0) {
+        return (
+            <section className={s.TodoList}>
+                {todoItems.map((item) => <TodoItem key={item.id} {...item} />)}
+            </section>
+        );
+    }
+    else {
+        return (<></>);
+    }
 };
 
 export default TodoList;

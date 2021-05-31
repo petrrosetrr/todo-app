@@ -6,14 +6,23 @@
     min-height: 3.2rem;
     padding: 0.5rem 1rem;
 }
+
 .TodoItem:not(:last-child) {
-    border-bottom: 1px solid #828282;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .TodoItem p {
     flex-grow: 1;
-    text-overflow: fade;
+    text-overflow: ellipsis;
     cursor: pointer;
+}
+
+.TodoItem p.done {
+    text-decoration: line-through;
+}
+
+.TodoItem p.important {
+    font-weight: bold;
 }
 
 .TodoItem .btnContainer {
@@ -33,12 +42,12 @@
 }
 
 .TodoItem .btnImportant {
-    border: 1px solid #d54f32;
+    border: 1px solid var(--color-red);
     border-radius: 5px;
 }
 
 .TodoItem .btnDelete {
-    border: 1px solid dimgray;
+    border: 1px solid var(--color-gray);
     border-radius: 5px;
 }
 

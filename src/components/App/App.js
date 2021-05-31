@@ -1,39 +1,39 @@
 import React, {useState} from 'react';
-import s from './App.module.css';
+import './App.css';
 import AppHeader from "../AppHeader/AppHeader";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import TodoList from "../TodoList/TodoList";
 import AddItemPanel from "../AddItemPanel/AddItemPanel";
 
-const todoItems = [
-    {
-        value: 'Drink tee',
-        done: true,
-        important: false,
-        id: new Date().getTime().toString(),
-    },
-    {
-        value: 'Learn react',
-        done: false,
-        important: true,
-        id: new Date().getTime().toString(),
-    },
-    {
-        value: 'Build awesome apps',
-        done: false,
-        important: false,
-        id: new Date().getTime().toString(),
-    },
-];
-
 export const TodoContext = React.createContext(null);
 
 function App() {
-    const [items, setItems] = useState(todoItems);
+    const [todoItems, setTodoItems] = useState([
+        {
+            value: 'Drink tee',
+            done: true,
+            important: false,
+            id: new Date().getTime().toString()  + '1',
+        },
+        {
+            value: 'Learn react',
+            done: false,
+            important: true,
+            id: new Date().getTime().toString() + '2',
+        },
+        {
+            value: 'Build awesome apps',
+            done: false,
+            important: false,
+            id: new Date().getTime().toString() + '3',
+        },
+    ]);
+
+    const params = useState({query: '', done: null});
 
     const removeItem = (id) => {
-        setItems(items.filter((item) => item.id !== id))
-    }
+        setTodoItems(todoItems.filter((item) => item.id !== id))
+    };
 
     const addItem = (value) => {
         const newItem = {
@@ -42,24 +42,35 @@ function App() {
             id: new Date().getTime().toString(),
             value,
         }
-        setItems([...items, newItem]);
-    }
+        setTodoItems([...todoItems, newItem]);
+    };
 
     const highlightItem = (id) => {
-        setItems(items.map((item)=> {
+        setTodoItems(todoItems.map((item)=> {
             if(item.id === id) {
-                item.important = true;
+                item.important = !item.important;
             }
             return item;
         } ));
-    }
+    };
 
     const finishItem = (id) => {
-        setItems(items.map((item) => {
+        setTodoItems(todoItems.map((item) => {
             if (item.id === id)
-                item.done = true;
+                item.done = !item.done;
             return item;
         }));
+    };
+
+    const filterItems = (todoItems, [params]) => {
+        if (params.query.length === 0 && params.done === null) {
+            return todoItems;
+        }
+        return todoItems.filter((item) => {
+            const contains = item.value.toLowerCase()
+                .includes(params.query.toLowerCase())
+            return contains && (item.done === params.done || params.done === null);
+        });
     }
 
     return (
@@ -71,16 +82,17 @@ function App() {
                 highlightItem,
                 finishItem,
                 addItem,
+                params,
             }
         }>
-        <div className={s.App}>
-            <div className={s.container}>
+        <div className='App'>
+            <div className='AppContainer'>
                 <AppHeader
                     todo={todoItems.filter((todo) => !todo.done).length}
                     done={todoItems.filter((todo) => todo.done).length}
                 />
                 <SearchPanel />
-                <TodoList />
+                <TodoList todoItems={filterItems(todoItems, params)} />
                 <AddItemPanel />
             </div>
         </div>

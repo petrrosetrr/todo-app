@@ -8,10 +8,12 @@
 .AppHeader h1 {
     font-size: 4rem;
     font-weight: 600;
-    color: #333333;
+    color: var(--color-headings);
 }
 
 .AppHeader p {
     font-size: 1.5rem;
-    color: #828282;
+    font-weight: bolder;
+    opacity: .8;
+    color: var(--color-gray);
 }

@@ -5,17 +5,9 @@
 }
 
 .AddItemPanel input {
-    border: 1px solid #828282;
-    height: 100%;
-    border-radius: 5px;
     flex-grow: 3;
-    background: none;
-    color: #333333;
-    padding: 1rem;
 }
 
 .AddItemPanel button {
     flex-basis: 5rem;
-    border: 1px solid #828282;
-    border-radius: 5px;
 }
