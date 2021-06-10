@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import './App.css';
 import AppHeader from '../AppHeader/AppHeader';
 import SearchPanel from '../SearchPanel/SearchPanel';

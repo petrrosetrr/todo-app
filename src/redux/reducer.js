@@ -1,7 +1,10 @@
 import * as types from './types';
 import {combineReducers} from "redux";
 
-const todoReducer = (state = [], action) => {
+const todoReducer = (state, action) => {
+    if (!state) {
+        return null;
+    }
     switch (action.type) {
         case types.ADD_ITEM:
             return [...state, action.payload];
@@ -37,7 +40,10 @@ export const typeFilters = {
     COMPLETED: false,
 };
 
-const filterReducer = (state = {query: '', type: typeFilters.ALL}, action) => {
+const filterReducer = (state, action) => {
+    if (!state) {
+        return null;
+    }
     switch (action.type) {
         case types.CHANGE_QUERY:
             return {
