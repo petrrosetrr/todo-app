@@ -1,27 +1,30 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from './TodoItem.module.css'
-import {TodoContext} from "../App/App";
+import {useDispatch} from "react-redux";
+import {finishItem, highlightItem, removeItem} from "../../redux/actions";
+import {typeFilters} from "../../redux/reducer";
 
-const TodoItem = ({value, done, important, id}) => {
-    const {removeItem, highlightItem, finishItem} = useContext(TodoContext);
+const TodoItem = ({value, type, important, id}) => {
+
+    const dispatch = useDispatch();
     return (
         <div className={s.TodoItem}>
             <p
-                onClick={() => finishItem(id)}
-                className={`${done && s.done} ${important && s.important}`}
+                onClick={() => dispatch(finishItem(id))}
+                className={`${type === typeFilters.COMPLETED && s.done} ${important && s.important}`}
             >
                 {value}
             </p>
             <div className={s.btnContainer}>
                 <button
                     className={`${s.btn} ${s.btnDelete}`}
-                    onClick={() => removeItem(id)}
+                    onClick={() => dispatch(removeItem(id))}
                 >
                     🗑️
                 </button>
                 <button
                     className={`${s.btn} ${s.btnImportant}`}
-                    onClick={() => highlightItem(id)}
+                    onClick={() => dispatch(highlightItem(id))}
                 >
                     ❗
                 </button>

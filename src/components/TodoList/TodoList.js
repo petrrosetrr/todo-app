@@ -2,7 +2,7 @@ import React from 'react';
 import TodoItem from "../TodoItem/TodoItem";
 import s from './TodoList.module.css'
 
-const TodoList = ({todoItems}) => {
+const TodoList = React.memo(({todoItems}) => {
     if (todoItems.length > 0) {
         return (
             <section className={s.TodoList}>
@@ -13,6 +13,6 @@ const TodoList = ({todoItems}) => {
     else {
         return (<></>);
     }
-};
+});
 
 export default TodoList;

@@ -1,29 +1,29 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import s from './SearchPanel.module.css'
-import {TodoContext} from "../App/App";
+import {useDispatch, useSelector} from "react-redux";
+import {changeQuery, changeStatusFilter} from "../../redux/actions";
+import {typeFilters} from "../../redux/reducer";
 
 const SearchPanel = () => {
-    const [value, setValue] = useState('');
-    const {params: [params, setParams]} = useContext(TodoContext);
+    const {query, type} = useSelector((state)=> state.filter);
+    const dispatch = useDispatch();
+
     return (
         <section className={s.searchPanel}>
             <input
                 type="text"
                 placeholder='Type to search'
                 className='input'
-                value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                    setParams({...params, query: e.target.value});
-                }}
+                value={query}
+                onChange={(e) => dispatch(changeQuery(e.target.value))}
             />
             <ul>
                 <li>
                     <button
                         type='button'
                         className='button'
-                        disabled={params.done === null}
-                        onClick={() => setParams({...params, done: null})}
+                        disabled={type === typeFilters.ALL}
+                        onClick={() => dispatch(changeStatusFilter(typeFilters.ALL))}
                     >
                         All
                     </button>
@@ -32,8 +32,8 @@ const SearchPanel = () => {
                     <button
                         type='button'
                         className='button'
-                        disabled={params.done === false}
-                        onClick={() => setParams({...params, done: false})}
+                        disabled={type === typeFilters.ACTIVE}
+                        onClick={() => dispatch(changeStatusFilter(typeFilters.ACTIVE))}
                     >
                         Active
                     </button>
@@ -42,8 +42,8 @@ const SearchPanel = () => {
                     <button
                         type='button'
                         className='button'
-                        disabled={params.done === true}
-                        onClick={() => setParams({...params, done: true})}
+                        disabled={type === typeFilters.COMPLETED}
+                        onClick={() => dispatch(changeStatusFilter(typeFilters.COMPLETED))}
                     >
                         Done
                     </button>

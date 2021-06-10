@@ -1,10 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import s from './AddItemPanel.module.css'
-import {TodoContext} from "../App/App";
+import {useDispatch} from "react-redux";
+import {addItem} from "../../redux/actions";
 
 const AddItemPanel = () => {
     const [value, setValue] = useState('');
-    const {addItem} = useContext(TodoContext);
+    const dispatch = useDispatch();
 
     return (
         <form className={s.AddItemPanel}>
@@ -22,14 +23,10 @@ const AddItemPanel = () => {
                 onClick={(e) => {
                     e.preventDefault()
                     if (value) {
-                        addItem(value)
+                        dispatch(addItem(value));
                         setValue('');
                     }
-                    else {
-                        // TODO: show modal
-                    }
-                }
-                }>
+                }}>
                 Add
             </button>
         </form>
